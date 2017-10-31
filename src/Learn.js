@@ -47,15 +47,15 @@ export default class Learn {
 		<div>
 			<h1>THESE ARTICLES DESCRIBE HOW TO IMPROVE YOUR INSPECTIONS</h1>
 			<div>
-				{ !loading && data && data.length > 0 && data.map((d, i) => (
-					<div><Data
+				{ !loading && this.state.learning && this.state.learning.length > 0 && this.state.learning.map((l, i) => (
+					<div><Learning
 						onClick={ console.log("clicked network") } 
-						data={ d } 
+						learning={ l } 
 						key={ i } 
 					/></div>
 				)) }
 			</div>
-			<div style={ styles.button } onClick={ getData } >Refresh</div>
+			<div style={ styles.button } onClick={ this.getLearning } >Refresh</div>
 		</div>
 	)
 }
