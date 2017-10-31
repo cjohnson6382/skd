@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Button, Glyphicon, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-// import Inspection from './Inspection'
+import Data from './Data'
 
 import { kaizenFetch } from './utilities'
 
@@ -22,7 +22,7 @@ const styles = {
 }
 
 // ANALYZE INSPECTIONS WITH DATA SCIENCE
-export default class Analyze {
+export default class Analyze extends React.Component {
 	static propTypes = {}
 
 	constructor (props) {
@@ -43,21 +43,23 @@ export default class Analyze {
 		this.setState({ data, loading: false })
 	}
 
-	return (
-		<div>
-			<h1>THESE VISUALIZATIONS SHOW AGGREGATE INFORMATION ABOUT DATA YOU HAVE COLLECTED</h1>
+	render () {
+		return (
 			<div>
-				{ !loading && this.state.data && this.state.data.length > 0 && this.state.data.map((d, i) => (
-					<div><Data
-						onClick={ console.log("clicked network") } 
-						data={ d } 
-						key={ i } 
-					/></div>
-				)) }
+				<h1>THESE VISUALIZATIONS SHOW AGGREGATE INFORMATION ABOUT DATA YOU HAVE COLLECTED</h1>
+				<div>
+					{ !this.state.loading && this.state.data && this.state.data.length > 0 && this.state.data.map((d, i) => (
+						<div><Data
+							onClick={ console.log("clicked network") } 
+							data={ d } 
+							key={ i } 
+						/></div>
+					)) }
+				</div>
+				<div style={ styles.button } onClick={ this.getData } >Refresh</div>
 			</div>
-			<div style={ styles.button } onClick={ this.getData } >Refresh</div>
-		</div>
-	)
+		)
+	}
 }
 
 // Analyze.propTypes = {

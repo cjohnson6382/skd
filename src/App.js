@@ -4,11 +4,12 @@ import { BrowserRouter, Route } from 'react-router-dom' // , Redirect
 import { Grid } from 'react-bootstrap'
 
 import Home from './Home'
-// import Networks from './Networks'
-// import Reset from './Reset'
+import Assign from './Assign'
+import Analyze from './Analyze'
+import Learn from './Learn'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
-// import Detailed from './Detailed'
+import New from './New'
 
 import { kaizenFetch } from './utilities'
 
@@ -26,7 +27,7 @@ const styles = {
   }
 }
 
-class App extends Component {
+export default class App extends Component {
   constructor (props) {
     super(props)
 
@@ -51,7 +52,11 @@ class App extends Component {
         <Grid style={ styles.container } className="App">
           <div style={ styles.sidebar } ><Sidebar /></div>
           <div style={ styles.content } >
-            <Route exact path="/" render={ routeProps => <Home { ...routeProps } /> } />
+            <Route exact path="/" render={ routeProps => <Home loading={ this.state.loading } { ...routeProps } /> } />
+            <Route exact path="/analyze" render={ routeProps => <Analyze { ...routeProps } /> } />
+            <Route exact path="/assign" render={ routeProps => <Assign { ...routeProps } /> } />
+            <Route exact path="/learn" render={ routeProps => <Learn { ...routeProps } /> } />
+            <Route exact path="/new" render={ routeProps => <New { ...routeProps } /> } />
           </div>
           <Footer style={ styles.footer } />
         </Grid>
@@ -108,4 +113,4 @@ class App extends Component {
             />
 */
 
-export default App
+// export default App

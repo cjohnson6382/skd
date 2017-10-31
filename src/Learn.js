@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom'
 
 import { kaizenFetch } from './utilities'
 
+import Learning from './Learning'
+
 const styles = {
 	button: {
 		border: "0.1em solid black",
@@ -22,7 +24,7 @@ const styles = {
 }
 
 // LEARN HOW TO IMPROVE INSPECTION QUALITY
-export default class Learn {
+export default class Learn extends React.Component {
 	static propTypes = {}
 
 	constructor (props) {
@@ -43,19 +45,21 @@ export default class Learn {
 		this.setState({ learning, loading: false })
 	}
 
-	return (
-		<div>
-			<h1>THESE ARTICLES DESCRIBE HOW TO IMPROVE YOUR INSPECTIONS</h1>
+	render () {
+		return (
 			<div>
-				{ !loading && this.state.learning && this.state.learning.length > 0 && this.state.learning.map((l, i) => (
-					<div><Learning
-						onClick={ console.log("clicked network") } 
-						learning={ l } 
-						key={ i } 
-					/></div>
-				)) }
+				<h1>THESE ARTICLES DESCRIBE HOW TO IMPROVE YOUR INSPECTIONS</h1>
+				<div>
+					{ !this.state.loading && this.state.learning && this.state.learning.length > 0 && this.state.learning.map((l, i) => (
+						<div><Learning
+							onClick={ console.log("clicked network") } 
+							learning={ l } 
+							key={ i } 
+						/></div>
+					)) }
+				</div>
+				<div style={ styles.button } onClick={ this.getLearning } >Refresh</div>
 			</div>
-			<div style={ styles.button } onClick={ this.getLearning } >Refresh</div>
-		</div>
-	)
+		)		
+	}
 }

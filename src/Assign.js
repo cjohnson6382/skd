@@ -24,14 +24,14 @@ const styles = {
 		display: "inline-block"
 	},
 	listItems: (type, id) => ({
-		backgroundColor: this.state.assignment[type][id] ? "purple" : "white"
+		backgroundColor: this.state.assignment[type][id] ? "purple" : "white",
 		padding: "0.2em",
 		borderBottom: "0.1em solid lightgrey"
 	})
 }
 
 // ASSIGN INSPECTION TO CONTRACTOR
-export default class Assign {
+export default class Assign extends React.Component {
 	static propTypes = {
 		inspections: PropTypes.array
 	}
@@ -39,7 +39,7 @@ export default class Assign {
 	constructor (props) {
 		super(props)
 
-		this.getContractors = this.getContrators.bind(this)
+		this.getContractors = this.getContractors.bind(this)
 	}
 
 	// contractors, inspections, and sites: { name: "", id: "" }
@@ -66,7 +66,7 @@ export default class Assign {
 		this.setState({ loading: true })
 		let { inspections, contractors, sites } = this.state.assignment
 		if (inspections.length > 0 && contractors.length > 0 && sites.length > 0) {
-			r = await (await kaizenFetch("assign_inspection")("POST")(this.state.assignment)).json()
+			let r = await (await kaizenFetch("assign_inspection")("POST")(this.state.assignment)).json()
 			console.log(r)
 			this.setState({ assignment: { inspections: {}, contractors: {}, sites: {} } })
 		} else {
@@ -77,43 +77,45 @@ export default class Assign {
 
 	async select (e) { this.setState({ [e.target.attributes.type.value]: e.target.value }) }
 
-	return (
-		<div>
-			<h1>ASSIGN ONE OR MORE INSPECTIONS TO A CONTRACTORS</h1>
-			<div style={ styles.panel } >
-				{ !loading && this.state.contractors && this.state.contractors.length > 0 && this.state.contractors.map((c, i) => (
-					<div
-						style={ this.listItem("contractors", c.id) }
-						onClick={ this.select }
-						type="contractors" 
-						value={ c.id } 
-						key={ i } 
-					>{ c.name }</div>
-				)) }
+	render () {
+		return (
+			<div>
+				<h1>ASSIGN ONE OR MORE INSPECTIONS TO A CONTRACTORS</h1>
+				<div style={ styles.panel } >
+					{ !this.state.loading && this.state.contractors && this.state.contractors.length > 0 && this.state.contractors.map((c, i) => (
+						<div
+							style={ this.listItem("contractors", c.id) }
+							onClick={ this.select }
+							type="contractors" 
+							value={ c.id } 
+							key={ i } 
+						>{ c.name }</div>
+					)) }
+				</div>
+				<div style={ styles.panel } >
+					{ !this.state.loading && this.state.inspections && this.state.inspections.length > 0 && this.state.inspections.map((insp, i) => (
+						<div
+							style={ this.listItem("inspections", insp.id) }
+							onClick={ this.select }
+							type="inspections"
+							value={ insp.id } 
+							key={ i } 
+						>{ insp.name }</div>
+					)) }				
+				</div>
+				<div style={ styles.panel } >
+					{ !this.state.loading && this.state.sites && this.state.sites.length > 0 && this.state.sites.map((s, i) => (
+						<div
+							style={ this.listItem("sites", s.id) }
+							onClick={ this.select } 
+							type="sites"
+							value={ s.id } 
+							key={ i } 
+						>{ s.name }</div>
+					)) }				
+				</div>
+				<div style={ styles.button } onClick={ this.submit } >Assign</div>
 			</div>
-			<div style={ styles.panel } >
-				{ !loading && this.state.inspections && this.state.inspections.length > 0 && this.state.inspections.map((insp, i) => (
-					<div
-						style={ this.listItem("inspections", insp.id) }
-						onClick={ this.select }
-						type="inspections"
-						value={ insp.id } 
-						key={ i } 
-					>{ insp.name }</div>
-				)) }				
-			</div>
-			<div style={ styles.panel } >
-				{ !loading && this.state.sites && this.state.sites.length > 0 && this.state.sites.map((s, i) => (
-					<div
-						style={ this.listItem("sites", s.id) }
-						onClick={ this.select } 
-						type="sites"
-						value={ s.id } 
-						key={ i } 
-					>{ s.name }</div>
-				)) }				
-			</div>
-			<div style={ styles.button } onClick={ this.submit } >Assign</div>
-		</div>
-	)
+		)
+	}
 }
