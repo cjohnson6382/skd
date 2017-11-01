@@ -15,4 +15,10 @@ export const SERVER_PREFIX = window.location.origin + "/";
 // }
 // export const API_SERVER_PREFIX = apiServerPrefix;
 
-export const API_SERVER_PREFIX = "http://localhost:5000/"
+export const API_SERVER_PREFIX = "http://localhost:5000/dashboard/"
+
+export const AUTH_CONFIG = { 
+	domain: 'cjohnson6382.auth0.com',
+	clientId: 'Q5GJW4mtJdIEupUlQWWuzu9OxqqytroO',
+	callbackUrl: SERVER_PREFIX + 'callback'
+}

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import PropTypes from 'prop-types'
-import { Button, Glyphicon, Modal } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+// import PropTypes from 'prop-types'
+// import { Button, Glyphicon, Modal } from 'react-bootstrap'
+// import { Link } from 'react-router-dom'
 
 import Data from './Data'
 
@@ -39,7 +39,7 @@ export default class Analyze extends React.Component {
 
 	async getData () {
 		this.setState({ loading: true })
-		let data = await (await kaizenFetch("data_analysis")("GET")()).json()
+		let data = await (await kaizenFetch("GET")("data")()).json()
 		this.setState({ data, loading: false })
 	}
 

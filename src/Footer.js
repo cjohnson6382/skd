@@ -1,10 +1,10 @@
 import React from 'react'
 
-import PropTypes from 'prop-types'
-import { Button, Glyphicon, Modal } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+// import PropTypes from 'prop-types'
+// import { Button, Glyphicon, Modal } from 'react-bootstrap'
+// import { Link } from 'react-router-dom'
 
-import { wipiFetch } from './utilities'
+// import { kaizenFetch } from './utilities'
 
 const styles = {
 	footerItem: {

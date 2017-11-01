@@ -9,7 +9,7 @@ import { API_SERVER_PREFIX } from './config';
 export let app_ids = {}
 
 const headers = {
-	// "Authorization": "Bearer " + localStorage.getItem("id_token"),
+	"Authorization": "Bearer " + localStorage.getItem("id_token"),
 	"accept": "application/json",
 	"content-type": "application/json"		
 }

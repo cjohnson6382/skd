@@ -1,8 +1,8 @@
 import React from 'react'
 
-import PropTypes from 'prop-types'
-import { Button, Glyphicon, Modal } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+// import PropTypes from 'prop-types'
+// import { Button, Glyphicon, Modal } from 'react-bootstrap'
+// import { Link } from 'react-router-dom'
 
 // import Inspection from './Inspection'
 
@@ -35,13 +35,11 @@ export default class Learn extends React.Component {
 
 	state = { loading: false, learning: [] }
 
-	componentDidMount () {
-		this.getLearning()
-	}
+	componentDidMount () { this.getLearning() }
 
 	async getLearning () {
 		this.setState({ loading: true })
-		let learning = await (await kaizenFetch("learning")("GET")()).json()
+		let learning = await (await kaizenFetch("GET")("learning")()).json()
 		this.setState({ learning, loading: false })
 	}
 

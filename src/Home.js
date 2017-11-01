@@ -1,12 +1,12 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
-import { Button, Glyphicon, Modal } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+// import { Button, Glyphicon, Modal } from 'react-bootstrap'
+// import { Link } from 'react-router-dom'
 
 import Inspection from './Inspection'
 
-import { kaizenFetch } from './utilities'
+// import { kaizenFetch } from './utilities'
 
 const styles = {
 	button: {
@@ -44,7 +44,7 @@ const Home = ({ getInspections, inspections, loading }) => {
 Home.propTypes = {
 	getInspections: PropTypes.func,
 	inspections: PropTypes.array,
-	loading: PropTypes.boolean
+	loading: PropTypes.bool
 }
 
 export default Home

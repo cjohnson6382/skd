@@ -1,8 +1,8 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
-import { Button, Glyphicon, Modal } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+// import { Button, Glyphicon, Modal } from 'react-bootstrap'
+// import { Link } from 'react-router-dom'
 
 // import Inspection from './Inspection'
 
@@ -52,13 +52,15 @@ export default class Assign extends React.Component {
 
 	async getContractors () {
 		this.setState({ loading: true })
-		let contractors = await (await kaizenFetch("get_contractors")("GET")()).json()
+		let contractors = await kaizenFetch("GET")("contractors")()
+		contractors = contractors ? await contractors.json() : []
 		this.setState({ contractors, loading: false })
 	}
 
 	async getSites () {
 		this.setState({ loading: true })
-		let sites = await (await kaizenFetch("get_sites")("GET")()).json()
+		let sites = await kaizenFetch("GET")("sites")()
+		sites = sites ? await sites.json() : []
 		this.setState({ sites, loading: false })
 	}
 
@@ -66,7 +68,7 @@ export default class Assign extends React.Component {
 		this.setState({ loading: true })
 		let { inspections, contractors, sites } = this.state.assignment
 		if (inspections.length > 0 && contractors.length > 0 && sites.length > 0) {
-			let r = await (await kaizenFetch("assign_inspection")("POST")(this.state.assignment)).json()
+			let r = await (await kaizenFetch("POST")("assign")(this.state.assignment)).json()
 			console.log(r)
 			this.setState({ assignment: { inspections: {}, contractors: {}, sites: {} } })
 		} else {
