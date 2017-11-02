@@ -13,11 +13,11 @@ const styles = {
 }
 
 const Inspection = ({ inspection, onClick }) => (
-	<Link to={ `/detailed/${inspection}` } onClick={ onClick } style={ styles.inspection } >{ inspection }</Link>
+	<Link to={ `/detailed/${inspection.name}` } onClick={ onClick } style={ styles.inspection } >{ inspection.name }</Link>
 )
 
 Inspection.propTypes = {
-	inspection: PropTypes.string,
+	inspection: PropTypes.object,
 	onClick: PropTypes.func
 }
 

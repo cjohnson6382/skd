@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 import Inspection from './Inspection'
 
-// import { kaizenFetch } from './utilities'
+import { kaizenFetch } from './utilities'
 
 const styles = {
 	button: {
@@ -21,30 +21,48 @@ const styles = {
 	}
 }
 
-// "MANAGE INSPECTIONS"
-const Home = ({ getInspections, inspections, loading }) => {
+export default class Home extends React.Component {
+	static propTypes = {
+		getInspections: PropTypes.func,
+		inspections: PropTypes.array,
+		loading: PropTypes.bool
+	}
+
+	constructor (props) {
+		super(props)
+
+		this.getInspections = this.getInspections.bind(this)
+	}
+
+	state = { inspections: [], loading: true }
+
+	componentDidMount () { this.getInspections() }
+
+	async getInspections () { 
+		this.setState({ loading: true })
+		let inspections = await kaizenFetch("GET")("inspections")()
+		inspections = inspections ? await inspections.json() : []
+		this.setState({
+			inspections,
+			loading: false
+		})
+	}
+
+  render () {
 	return (
 		<div>
 			<h1>THESE ARE YOUR CURRENT INSPECTIONS</h1>
 			<h3>Select one to view details</h3>
 			<div>
-				{ !loading && inspections && inspections.length > 0 && inspections.map((inspection, i) => (
-					<div><Inspection
-						onClick={ console.log("clicked network") } 
+				{ !this.state.loading && this.state.inspections.length > 0 && this.state.inspections.map((inspection, i) => (
+					<div key={ i } ><Inspection
+						onClick={ console.log("clicked inspection") } 
 						inspection={ inspection } 
-						key={ i } 
 					/></div>
 				)) }
 			</div>
-			<div style={ styles.button } onClick={ getInspections } >Refresh the List</div>
+			<div style={ styles.button } onClick={ this.getInspections } >Refresh the List</div>
 		</div>
 	)
+  }
 }
-
-Home.propTypes = {
-	getInspections: PropTypes.func,
-	inspections: PropTypes.array,
-	loading: PropTypes.bool
-}
-
-export default Home

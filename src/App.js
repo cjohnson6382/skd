@@ -11,7 +11,7 @@ import Footer from './Footer'
 import Sidebar from './Sidebar'
 import New from './New'
 
-import { kaizenFetch } from './utilities'
+// import { kaizenFetch } from './utilities'
 
 import Auth from './Auth'
 
@@ -35,31 +35,13 @@ const styles = {
 
 const auth = new Auth()
 
-const handleAuthentication = (nextState, replace) => { if (/access_token|id_token|error/.test(nextState.location.hash)) auth.handleAuthentication() }
+const handleAuthentication = (nextState, replace) => {
+  if (/access_token|id_token|error/.test(nextState.location.hash)) auth.handleAuthentication() 
+}
 const Callback = () => <div>Loading....</div>
 const Login = ({ auth }) => <div>{ !auth.isAuthenticated() && <h1>Click the Sign In button on the left sidebar to get started</h1> }</div>
 
 export default class App extends Component {
-  constructor (props) {
-    super(props)
-
-    this.getInspections = this.getInspections.bind(this)
-  }
-
-  state = { inspections: [], loading: true }
-
-  componentDidMount () { this.getInspections() }
-
-  async getInspections () { 
-    this.setState({ loading: true })
-    let inspections = await kaizenFetch("GET")("inspections")()
-    inspections = inspections ? await inspections.json() : []
-    this.setState({
-      inspections,
-      loading: false
-    })
-  }
-
   render() {
     const Authorized = ({ component: Component, ...rest }) => {
       return <Route { ...rest } render={ props =>
@@ -80,7 +62,7 @@ export default class App extends Component {
           <div style={ styles.sidebar } ><Sidebar auth={ auth } /></div>
           <div style={ styles.content } >
             <Route exact path="/login" render={ routeProps => <Login auth={ auth } { ...routeProps } /> } />
-            <Authorized exact path="/" loading={ this.state.loading } component={ Home } />
+            <Authorized exact path="/" component={ Home } />
             <Authorized exact path="/analyze" component={ Analyze } />
             <Authorized exact path="/assign" component={ Assign } />
             <Authorized exact path="/learn" component={ Learn } />

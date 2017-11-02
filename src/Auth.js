@@ -22,17 +22,21 @@ export default class Auth {
   });
 
   login() {
-    this.auth0.authorize();
+    this.auth0.authorize()
   }
 
   handleAuthentication() {
+    console.log(window.location.hash)
     this.auth0.parseHash((err, authResult) => {
+
+      console.log("Auth.js, auth0.parseHash", authResult)
+
       if (authResult && authResult.accessToken && authResult.idToken) {
-        this.setSession(authResult);
-        history.replace('/');
+        this.setSession(authResult)
+        history.replace('/')
       } else if (err) {
-        history.replace('/');
-        console.log(err);
+        // history.replace('/')
+        console.log(err)
       }
     });
   }
@@ -45,7 +49,7 @@ export default class Auth {
       localStorage.setItem('id_token', authResult.idToken);
       localStorage.setItem('expires_at', expiresAt);
       // navigate to the / route
-      history.replace('/app');
+      history.replace('/');
     }
   }
 
