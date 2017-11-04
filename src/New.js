@@ -59,7 +59,7 @@ export default class New extends React.Component {
 
 	async submit () {
 		let { name, inspection } = this.state 
-		let r = await kaizenFetch("POST")("create")({ inspection, name })
+		let r = await kaizenFetch("POST")("inspections")({ inspection, name })
 		if (r) r = await r.json()
 		console.log(r)
 	}

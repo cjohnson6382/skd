@@ -13,7 +13,8 @@ const styles = {
 		fontWeight: "bold"
 	},
 	footerBox: {
-		padding: "2em"
+		padding: "2em",
+		color: "lightsteelblue"
 	},
 	footerContainer: {
 		backgroundColor: "aliceblue"

@@ -10,6 +10,8 @@ import Learn from './Learn'
 import Footer from './Footer'
 import Sidebar from './Sidebar'
 import New from './New'
+import NewContractor from './NewContractor'
+import NewSite from './NewSite'
 
 // import { kaizenFetch } from './utilities'
 
@@ -19,12 +21,14 @@ import './App.css';
 
 const styles = {
   sidebar: {
-    width: "20%",
+    width: "15%",
     display: "inline-block",
     backgroundColor: "cornflowerblue"
   },
   content: {
-    width: "80%",
+    width: "85%",
+    display: "flex",
+    alignContent: "flex-start",
     display: "inline-block"
   }
 }
@@ -59,18 +63,22 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Grid style={ styles.container } className="App">
-          <div style={ styles.sidebar } ><Sidebar auth={ auth } /></div>
-          <div style={ styles.content } >
-            <Route exact path="/login" render={ routeProps => <Login auth={ auth } { ...routeProps } /> } />
-            <Authorized exact path="/" component={ Home } />
-            <Authorized exact path="/analyze" component={ Analyze } />
-            <Authorized exact path="/assign" component={ Assign } />
-            <Authorized exact path="/learn" component={ Learn } />
-            <Authorized exact path="/new" component={ New } />
-            <Route exact path="/callback" render={ routeProps => { 
-              handleAuthentication(routeProps)
-              return <Callback { ...routeProps } />
-            } } />
+          <div style={ { display: "flex", alignContent: "stretch" } } >
+            <div style={ styles.sidebar } ><Sidebar auth={ auth } /></div>
+            <div style={ styles.content } >
+              <Route exact path="/login" render={ routeProps => <Login auth={ auth } { ...routeProps } /> } />
+              <Authorized exact path="/" component={ Home } />
+              <Authorized exact path="/analyze" component={ Analyze } />
+              <Authorized exact path="/assign" component={ Assign } />
+              <Authorized exact path="/learn" component={ Learn } />
+              <Authorized exact path="/new" component={ New } />
+              <Authorized exact path="/newcontractor" component={ NewContractor } />
+              <Authorized exact path="/newsite" component={ NewSite } />
+              <Route exact path="/callback" render={ routeProps => { 
+                handleAuthentication(routeProps)
+                return <Callback { ...routeProps } />
+              } } />
+            </div>
           </div>
           <Footer style={ styles.footer } />
         </Grid>

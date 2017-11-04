@@ -8,7 +8,14 @@ import { Link } from 'react-router-dom'
 
 const styles = {
 	inspection: {
-		padding: "0.3em"
+		padding: "0.5em",
+		cursor: "pointer",
+		width: "25%",
+		margin: "0.3em",
+		borderRadius: "0.2em",
+		backgroundColor: "deepskyblue",
+		color: "white",
+		textDecoration: "none"		
 	}
 }
 
